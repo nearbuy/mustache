@@ -80,4 +80,14 @@ EOF
 
     assert_equal expected, tokens
   end
+
+  def test_whitespace_in_tags
+    lexer = Mustache::Parser.new
+    tokens = lexer.compile("{{  Amazing Tag   Rocks }}")
+
+    expected = [:multi,
+      [:mustache, :etag,
+        [:mustache, :fetch, ["Amazing Tag   Rocks"]], [1, 22]]]
+    assert_equal expected, tokens
+  end
 end
